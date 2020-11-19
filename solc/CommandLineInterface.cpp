@@ -1780,16 +1780,15 @@ bool CommandLineInterface::link()
 		{
 			while (it != end && *it != '_') ++it;
 			if (it == end) break;
-			if (end - it < placeholderSize)
+			if (
+				end - it < placeholderSize ||
+				*(it + 1) != '_' ||
+				*(it + placeholderSize - 2) != '_' ||
+				*(it + placeholderSize - 1) != '_'
+			)
 			{
 				serr() << "Error in binary object file " << src.first << " at position " << (end - src.second.begin()) << endl;
 				return false;
-			}
-
-			if (*(it + 1) != '_' || *(it + placeholderSize - 2) != '_' || *(it + placeholderSize - 1) != '_')
-			{
-				++it;
-				continue;
 			}
 
 			string foundPlaceholder(it, it + placeholderSize);
