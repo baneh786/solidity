@@ -1788,7 +1788,7 @@ bool CommandLineInterface::link()
 				*(it + placeholderSize - 1) != '_'
 			)
 			{
-				serr() << "Error in binary object file " << src.first << " at position " << (end - src.second.begin()) << endl;
+				serr() << "Error in binary object file " << src.first << " at position " << (it - src.second.begin()) << endl;
 				serr() << '"' << string(it, it + min(placeholderSize, static_cast<int>(end - it))) << "\" is not a valid link reference." << endl;
 				return false;
 			}
